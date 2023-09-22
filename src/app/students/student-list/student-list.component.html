@@ -1,0 +1,75 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Gestor de estudiantes </span>
+
+    <div class="example-spacer"></div>
+
+    <div class="example-spacer"></div>
+    <button mat-raised-button color="primary" routerLink="/students/modify/0">
+      AGREGAR
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>id</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="surname">
+      <th mat-header-cell *matHeaderCellDef>Apellido</th>
+      <td mat-cell *matCellDef="let element">{{ element.surname }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="career">
+      <th mat-header-cell *matHeaderCellDef>Carrera</th>
+      <td mat-cell *matCellDef="let element">{{ element.career }}</td>
+    </ng-container>
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef>Año</th>
+      <td mat-cell *matCellDef="let element">{{ element.year }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="birthrate">
+      <th mat-header-cell *matHeaderCellDef>Fecha de nacimiento</th>
+      <td mat-cell *matCellDef="let element">{{ element.birthdate | date: 'dd/MM/yyyy'  }}</td>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>email</th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+    <ng-container matColumnDef="active">
+      <th mat-header-cell *matHeaderCellDef>active</th>
+      <td mat-cell *matCellDef="let element">{{ element.active }}</td>
+    </ng-container>
+            
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let element ; let i = index"> 
+    
+        <a class="pointer" style="color: #1f516f;" matTooltip="editar estudiante" [routerLink]="['/students/modify', element.id]">
+          <mat-icon>edit</mat-icon>
+        </a>
+        <a class="pointer" (click)="deleteStudent(element.id)" style="color: #e15634;" matTooltip="eliminar estudiante">
+          <mat-icon>delete</mat-icon>
+        </a>
+
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements"
+  >
+  </mat-paginator>
+</div>

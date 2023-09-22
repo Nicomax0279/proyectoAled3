@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="login">
+    <form [formGroup]="form" (submit)="next()">
+      <mat-form-field class="ancho" appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="juan" formControlName="name" />
+        <mat-hint>nombre del estudiante</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="ancho" appearance="fill">
+        <mat-label>Apellido</mat-label>
+        <input matInput placeholder="perez" formControlName="surname" />
+        <mat-hint>Apellido del estudiante</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="ancho" appearance="fill">
+        <mat-label>carrera</mat-label>
+        <input matInput placeholder="sistemas" formControlName="career" />
+        <mat-hint>carrera del estudiante</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="ancho" appearance="fill">
+        <mat-label>anó de carrera</mat-label>
+        <input matInput placeholder="perez" formControlName="year" />
+        <mat-hint>anó de carrera del estudiante</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="ancho" appearance="fill">
+        <mat-label>fecha de nacimiento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="birthdate" />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="ancho" appearance="fill">
+        <mat-label>email</mat-label>
+        <input matInput placeholder="perez@gmail.com" formControlName="email" />
+        <mat-hint>email del estudiante</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="ancho" appearance="fill">
+        <mat-label>numero de teléfono</mat-label>
+        <input
+          matInput
+          placeholder="1134541234"
+          formControlName="phoneNumber"
+        />
+        <mat-hint>numero de teléfono del estudiante</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="ancho" appearance="fill">
+        <mat-label>dirección</mat-label>
+        <input matInput placeholder="belgrano 501" formControlName="address" />
+        <mat-hint>dirección del estudiante</mat-hint>
+      </mat-form-field>
+
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        class="ancho button"
+        [disabled]="form.invalid"
+      >
+       {{mode}}
+      </button>
+    </form>
+  </div>
+</div>
