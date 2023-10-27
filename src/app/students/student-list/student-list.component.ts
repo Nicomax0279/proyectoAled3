@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./student-list.component.css'],
 })
 export class StudentListComponent {
-  
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   students!: Student[];
   displayedColumns: string[] = [
@@ -40,12 +40,25 @@ export class StudentListComponent {
       this.dataSource = new MatTableDataSource<Student>(this.students);
     });
   }
-
+isAdmin():boolean{
+  const token = localStorage.getItem('token')
+    if (token) {
+      const tokenData = JSON.parse(atob(token.split('.')[1]));
+      //console.log(tokenData)
+      return tokenData.role === 'admin';
+    }else{return false}
+}
   deleteStudent(id:number){
-    this.sus = this._StudentService.deleteStudent(id).subscribe(data=>{
-      this.loadTable()
-      this.dataSource.paginator = this.paginator;
-    })
+    if(!this.isAdmin()){
+      alert("para eliminar estudiantes debes ser admin")
+    }else{
+      this.sus = this._StudentService.deleteStudent(id).subscribe(data=>{
+        this.loadTable()
+        this.dataSource.paginator = this.paginator;
+      })
+    }
+
+
   }
 
 

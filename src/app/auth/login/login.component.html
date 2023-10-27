@@ -1,0 +1,23 @@
+
+<div class="body">
+
+  <div class="login">
+
+   <img src="./../../../assets/img/login.png" width="50%">
+   <h1>Login</h1>
+   <form   [formGroup]="form" (ngSubmit)="login()">
+   <mat-form-field class="ancho" appearance="fill" >
+       <mat-label>email</mat-label>
+       <input matInput autocomplete="off" formControlName="username" type="email">
+     </mat-form-field>
+     <mat-form-field class="ancho" appearance="fill">
+       <mat-label>contraseña</mat-label>
+       <input matInput autocomplete="off" formControlName="password" type="password">
+     </mat-form-field>
+     <br>
+     <button type="submit" mat-raised-button color="primary" class="ancho button" [disabled]="form.invalid">Ingresar</button>
+   </form>
+   <br>
+
+  </div>
+</div>

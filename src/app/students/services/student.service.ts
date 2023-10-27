@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Student } from '../interfaces/student';
-import { Observable, of } from 'rxjs';
+import { Observable, last, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -80,6 +80,9 @@ export class StudentService {
     return of({ ...studentById });
   }
   addStudent(newStudent: Student): Observable<Student[]> {
+    const lastStudent = this.students[this.students.length - 1]
+    if(lastStudent.id) newStudent.id = lastStudent.id + 1
+
     this.students.push(newStudent);
     return of([...this.students]);
   }
@@ -90,11 +93,10 @@ export class StudentService {
     const index = this.students.findIndex(
       (student) => student.id === updatedStudent.id
     );
-    console.log(index);
+
     if (index !== -1) {
       this.students[index] = updatedStudent;
     }
-    console.log(this.students);
     return of([...this.students]);
   }
 

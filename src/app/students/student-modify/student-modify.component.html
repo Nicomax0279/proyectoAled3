@@ -13,18 +13,22 @@
         <mat-hint>Apellido del estudiante</mat-hint>
       </mat-form-field>
       <mat-form-field class="ancho" appearance="fill">
-        <mat-label>carrera</mat-label>
-        <input matInput placeholder="sistemas" formControlName="career" />
-        <mat-hint>carrera del estudiante</mat-hint>
+        <mat-label>Carrera</mat-label>
+        <!-- <input matInput autocomplete="off" formControlName="career"> -->
+        <mat-select name="career" formControlName="career">
+          <mat-option *ngFor="let career of careers" [value]="career">
+            {{ career }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field class="ancho" appearance="fill">
         <mat-label>anó de carrera</mat-label>
-        <input matInput placeholder="perez" formControlName="year" />
-        <mat-hint>anó de carrera del estudiante</mat-hint>
+        <input matInput placeholder="2" formControlName="year" />
+        <mat-hint>año de carrera del estudiante</mat-hint>
       </mat-form-field>
       <mat-form-field class="ancho" appearance="fill">
         <mat-label>fecha de nacimiento</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="birthdate" />
+        <input matInput [matDatepicker]="picker" placeholder="11/12/2001" formControlName="birthdate" />
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle
           matIconSuffix
@@ -61,7 +65,7 @@
         class="ancho button"
         [disabled]="form.invalid"
       >
-       {{mode}}
+        {{ modeToSpanish(mode) }}
       </button>
     </form>
   </div>

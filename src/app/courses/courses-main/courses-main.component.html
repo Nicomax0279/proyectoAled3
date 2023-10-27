@@ -1,0 +1,9 @@
+
+<div class="cards-Container">
+  <!-- <app-courses-card-to-add class="card" (editCourse)="editCourse($event)" (createCourse)="addCourse($event)"  *ngIf="toEditId==0"></app-courses-card-to-add> -->
+  <ng-container *ngIf="isAdmin()" >
+  <app-courses-card-to-add class="card" [InputCourse]="courseToEdit"  (editCourse)="editCourse($event)" (createCourse)="addCourse($event)"></app-courses-card-to-add>
+  </ng-container>
+ <app-course-card class="card"  *ngFor="let course of courses" [course]="course" (editCourse)="toEditCourse($event)"  (deleteCourse)="deleteCourse($event)">a</app-course-card>
+
+</div>

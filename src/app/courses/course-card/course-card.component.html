@@ -1,0 +1,21 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{course.title}}</mat-card-title>
+        <mat-card-subtitle>{{course.professor}}</mat-card-subtitle>
+        <mat-card-subtitle> {{course.modality}}</mat-card-subtitle>
+    </mat-card-header>
+    <img class="course-img" matCardImage src={{course.img}}>
+    <mat-card-content>
+        {{course.description}}
+    </mat-card-content>
+    <mat-card-actions>
+        <!-- <button mat-button color="primary">inscribir</button> -->
+        <button mat-button (click)="toEdit()">editar</button>
+        <span class="example-spacer"></span>
+        <button mat-button color="warn" (click)="delete()">eliminar</button>
+
+    </mat-card-actions>
+    <!-- <mat-card-footer>
+        {{course?.active}}
+    </mat-card-footer> -->
+</mat-card>

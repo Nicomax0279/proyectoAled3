@@ -1,0 +1,81 @@
+<mat-card>
+  <h3
+    style="
+      margin: auto;
+      background-color: rgb(21, 205, 238);
+      width: 100%;
+      text-align: center;
+      cursor: pointer;
+    "
+    *ngIf="!isEditing"
+    (click)="toggleEdit()"
+  >
+    toca para editar
+  </h3>
+  <h3
+    style="
+      margin: auto;
+      background-color: rgb(20, 231, 133);
+      width: 100%;
+      text-align: center;
+      cursor: pointer;
+    "
+    *ngIf="isEditing"
+    (click)="save()"
+  >
+    toca para Guardar
+  </h3>
+  <mat-card-header>
+    <mat-card-title>
+      <p *ngIf="!isEditing">{{ course.title }}</p>
+      <input *ngIf="isEditing" [(ngModel)]="editedTitle" style="width: 100%;" />
+    </mat-card-title>
+
+    <!--
+      <mat-card-subtitle>{{course.professor}}</mat-card-subtitle> -->
+    <mat-card-subtitle>
+      <p *ngIf="!isEditing">{{ course.professor }}</p>
+      <input *ngIf="isEditing" [(ngModel)]="editedProfessor" />
+    </mat-card-subtitle>
+    <mat-card-subtitle>
+      {{ course.modality }}
+      <button mat-button (click)="switchModality()">
+        <mat-icon>swap_horiz</mat-icon>
+      </button>
+      <button mat-button (click)="ChangeImage()">
+        <mat-icon>image</mat-icon>
+      </button>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <img class="course-img" matCardImage src={{course.img}} />
+  <mat-card-content>
+    <p
+      *ngIf="!isEditingDesc"
+
+
+    >
+      {{ course.description }}
+    </p>
+    <textarea
+      style="width: 100%"
+      *ngIf="isEditingDesc"
+      [(ngModel)]="editedDesc"
+    >
+    </textarea>
+
+    <!-- <button mat-button  *ngIf="!isEditingDesc" (click)="toggleEditDesc()">
+      <mat-icon>edit</mat-icon>
+    </button> -->
+    <!-- <button mat-button *ngIf="isEditingDesc" (click)="saveDesc()">
+      <p>Guardar</p>
+    </button> -->
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="primary" (click)="create()">Crear Curso</button>
+    <button mat-button color="primary" *ngIf="mode=='edit'" (click)="edit()">editar Curso</button>
+    <button mat-button  *ngIf="mode=='edit'" (click)="cancel()">cancelar</button>
+  </mat-card-actions>
+  <!-- <mat-card-footer>
+      {{course?.active}}
+  </mat-card-footer> -->
+</mat-card>

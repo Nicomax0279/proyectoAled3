@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Student } from '../interfaces/student';
 import { StudentService } from '../services/student.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 
 @Component({
@@ -16,8 +16,9 @@ form!:FormGroup
 sus?:Subscription
 studentId!:number
 student:Student | object= {}
+careers:string[] = ['analista de sistemas', 'diseño' , 'administración de empresas' ]
 mode : 'create'| 'update' = 'create'
-constructor(private fb:FormBuilder , private _studentService:StudentService , private _ActivatedRoute:ActivatedRoute){
+constructor(private fb:FormBuilder , private _studentService:StudentService , private _ActivatedRoute:ActivatedRoute , private router:Router){
   this.form = fb.group({
     name: ['', [Validators.required]],
     surname: ['',  [Validators.required]],
@@ -27,7 +28,7 @@ constructor(private fb:FormBuilder , private _studentService:StudentService , pr
     email: ['',[ Validators.required , Validators.email]],
     phoneNumber: ['',  [Validators.required]],
     address: ['',  [Validators.required]],
-    
+
 
 
 
@@ -44,23 +45,29 @@ ngOnInit(){
       this.form.setValue(res)
     })
   }
- 
+
 }
 next(){
   const student:Student = this.form.value
   if(this.mode == 'create'){
     this.sus = this._studentService.addStudent(student).subscribe(data=>{
       alert("estudiante creado correctamente")
+      this.router.navigate(['students'])
     })
   }else if(this.mode == 'update'){
     this.sus = this._studentService.updateStudent(this.studentId,student).subscribe(data=>{
       alert("estudiante creado correctamente")
+      this.router.navigate(['students'])
     })
   }
- 
+
 
 }
-
+modeToSpanish(mode:'create'| 'update'){
+  if(mode === 'create') return "Crear"
+  if(mode === 'update') return "Actualizar"
+  else return 'error'
+}
 
 ngOnDestroy(){
   if(this.sus){
