@@ -7,11 +7,9 @@
 /bazel-out
 
 # Node
-<<<<<<< HEAD
+
 node_modules
-=======
-/node_modules
->>>>>>> parent of 6fdc80ae (nodemodules)
+
 npm-debug.log
 yarn-error.log
 
