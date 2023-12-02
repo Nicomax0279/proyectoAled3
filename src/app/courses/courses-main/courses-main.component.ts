@@ -21,8 +21,7 @@ export class CoursesMainComponent {
 
   }
   constructor(private _coursesService: CoursesService) {}
-
-  ngOnInit() {
+  loadCourses(){
     this.sus = this._coursesService.getCourses().subscribe({
       next: (res) => {
         this.courses = res;
@@ -31,6 +30,10 @@ export class CoursesMainComponent {
         console.log(err);
       },
     });
+  }
+  ngOnInit() {
+
+    this.loadCourses()
   }
   toEditCourse(course: Course) {
     if(this.isAdmin()){
@@ -45,28 +48,37 @@ export class CoursesMainComponent {
 
   }
   editCourse(course: Course) {
+    delete course.professorName
+    delete course.professorSurname
    if(this.isAdmin()){
     if (course.id)
+
       this._coursesService.updateCourse(course.id, course).subscribe((e) => {
         alert('curso actualizado correctamente');
-        this.courses = e
+        this.loadCourses()
 
       });}else{
         alert('para editar cursos debes de ser admin')
       }
   }
-  addCourse(course: Course) {
+  addCourse(course: Course)
+  {
     if(this.isAdmin()){
+      delete course.professorName
+      delete course.professorSurname
+
     this._coursesService
       .addCourse(course)
-      .subscribe((e) => alert('curso creado correctamente'));
+      .subscribe((e) => {
+        alert('curso creado correctamente')
+        this.loadCourses()});
     }else{ alert('para crear cursos debes de ser admin')}
   }
   deleteCourse(course:Course){
     if(this.isAdmin()){
       if(course.id) this._coursesService.deleteCourse(course.id).subscribe((e) => {
         alert('curso eliminado correctamente');
-        this.courses = e
+        this.loadCourses()
       })
     }else{
       alert('para eliminar cursos debes de ser admin')

@@ -1,33 +1,30 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { StudentService } from '../services/student.service';
-import { Student } from '../interfaces/student';
+import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { Professor } from '../interfaces/professor';
 import { Subscription } from 'rxjs';
+import { ProfessorsService } from '../services/professors.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: 'app-student-list',
-  templateUrl: './student-list.component.html',
-  styleUrls: ['./student-list.component.css'],
+  selector: 'app-professors-list',
+  templateUrl: './professors-list.component.html',
+  styleUrls: ['./professors-list.component.css']
 })
-export class StudentListComponent {
+export class ProfessorsListComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  students!: Student[];
+  professors!: Professor[];
   displayedColumns: string[] = [
     'id',
     'name',
     'surname',
-    'career',
-    'year',
-    'birthrate',
-    'email',
+    'description',
     'active','actions'
   ];
   sus?:Subscription
   dataSource!: any;
 
-  constructor(private _StudentService: StudentService) {}
+  constructor(private _ProfessorsService: ProfessorsService) {}
   // ngAfterViewInit() {
   //   this.dataSource.paginator = this.paginator;
   // }
@@ -36,9 +33,9 @@ export class StudentListComponent {
   }
   loadTable(){
 
-    this._StudentService.getStudents().subscribe((data) => {
-      this.students = data;
-      this.dataSource = new MatTableDataSource<Student>(this.students);
+    this._ProfessorsService.getProfessors().subscribe((data) => {
+      this.professors = data;
+      this.dataSource = new MatTableDataSource<Professor>(this.professors);
       this.dataSource.paginator = this.paginator;
     });
   }
@@ -50,13 +47,12 @@ isAdmin():boolean{
       return tokenData.role === 'admin';
     }else{return false}
 }
-  deleteStudent(id:number){
+  deleteProfessor(id:number){
     if(!this.isAdmin()){
       alert("para eliminar estudiantes debes ser admin")
     }else{
-      this.sus = this._StudentService.deleteStudent(id).subscribe(data=>{
+      this.sus = this._ProfessorsService.deleteProfessor(id).subscribe(data=>{
         this.loadTable()
-
       })
     }
 

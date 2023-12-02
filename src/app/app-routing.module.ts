@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('./auth/auth.module').then((m) => m.AuthModule), canActivate:[IsntLogedGuard]
+      import('./auth/auth.module').then((m) => m.AuthModule)
+  },{
+    path: 'professors',
+    loadChildren: () =>
+      import('./professors/professors.module').then((m) => m.ProfessorsModule), canActivate:[IsLogedGuard]
   },
   {path: '' , component:MainComponent , canActivate:[IsLogedGuard]},
   {path: '**' , redirectTo:''}

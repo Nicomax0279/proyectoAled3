@@ -17,5 +17,12 @@ export class CourseCardComponent {
  delete(){
   this.deleteCourse.emit(this.course)
  }
-
+ isAdmin():boolean{
+  const token = localStorage.getItem('token')
+    if (token) {
+      const tokenData = JSON.parse(atob(token.split('.')[1]));
+      //console.log(tokenData)
+      return tokenData.role === 'admin';
+    }else{return false}
+}
 }

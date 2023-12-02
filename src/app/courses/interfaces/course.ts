@@ -1,8 +1,10 @@
 export interface Course {
   id?: number;
   active?: boolean;
-  professor: string;
+  professorId: number;
   title: string;
+  professorName?: string;
+  professorSurname?: string;
   description: string;
   modality: 'virtual' | 'presencial';
   img?:string

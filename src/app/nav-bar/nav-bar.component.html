@@ -1,11 +1,16 @@
 <mat-toolbar color="primary">
     <span routerLink="./">gestión de curso</span>
     <span class="example-spacer"></span>
-    <button mat-button routerLink="students" *ngIf="isLoged()">estudiantes</button>
-    <button mat-button routerLink="courses" *ngIf="isLoged()" >cursos</button>
-    <button mat-button routerLink="auth"  *ngIf="!isLoged()">login</button>
+    <div *ngIf="isLoged()" >
+    <button mat-button routerLink="students" >estudiantes</button>
+    <button mat-button routerLink="courses"  >cursos</button>
+
+    <button mat-button routerLink="professors"  >profesores</button>
+  </div>
+  <button mat-button routerLink="auth/login" *ngIf="!isLoged()" >login</button>
+  <button mat-button routerLink="auth/signup" *ngIf="isLoged() && isAdmin()" >signup</button>
     <span class="example-spacer"></span>
-    <button mat-icon-button  (click)="logout()" *ngIf="isLoged()" matTooltip="Cerrar sesión" >
+    <button mat-icon-button  (click)="logout()" matTooltip="Cerrar sesión" >
       <mat-icon>logout</mat-icon>
   </button>
   </mat-toolbar>

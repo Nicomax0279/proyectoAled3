@@ -1,11 +1,11 @@
 <mat-toolbar>
   <mat-toolbar-row>
-    <span>Gestor de estudiantes </span>
+    <span>Gestor de Profesores </span>
 
     <div class="example-spacer"></div>
 
     <div class="example-spacer"></div>
-    <button  *ngIf="isAdmin()"  mat-raised-button color="primary" routerLink="/students/modify/0">
+    <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/professors/modify/0">
       AGREGAR
     </button>
   </mat-toolbar-row>
@@ -27,36 +27,24 @@
       <td mat-cell *matCellDef="let element">{{ element.surname }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="career">
-      <th mat-header-cell *matHeaderCellDef>Carrera</th>
-      <td mat-cell *matCellDef="let element">{{ element.career }}</td>
-    </ng-container>
-    <ng-container matColumnDef="year">
-      <th mat-header-cell *matHeaderCellDef>Año</th>
-      <td mat-cell *matCellDef="let element">{{ element.year }}</td>
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>descripción</th>
+      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="birthrate">
-      <th mat-header-cell *matHeaderCellDef>Fecha de nacimiento</th>
-      <td mat-cell *matCellDef="let element">{{ element.birthdate | date: 'dd/MM/yyyy'  }}</td>
-    </ng-container>
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef>email</th>
-      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
-    </ng-container>
     <ng-container matColumnDef="active">
-      <th mat-header-cell *matHeaderCellDef>active</th>
+      <th mat-header-cell *matHeaderCellDef>activo</th>
       <td mat-cell *matCellDef="let element">{{ element.active | active}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="actions">
+    <ng-container matColumnDef="actions" >
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
       <td mat-cell *matCellDef="let element ; let i = index">
 
-        <a class="pointer"  *ngIf="isAdmin()"  style="color: #1f516f;" matTooltip="editar estudiante" [routerLink]="['/students/modify', element.id]">
+        <a  *ngIf="isAdmin()"  class="pointer" style="color: #1f516f;" matTooltip="editar profesor" [routerLink]="['/professors/modify', element.id]">
           <mat-icon>edit</mat-icon>
         </a>
-        <a class="pointer"  *ngIf="isAdmin()"  (click)="deleteStudent(element.id)" style="color: #e15634;" matTooltip="eliminar estudiante">
+        <a   *ngIf="isAdmin()" class="pointer" (click)="deleteProfessor(element.id)" style="color: #e15634;" matTooltip="eliminar profesor">
           <mat-icon>delete</mat-icon>
         </a>
 

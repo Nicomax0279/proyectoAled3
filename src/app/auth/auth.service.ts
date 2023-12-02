@@ -1,6 +1,8 @@
 import { of, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { loginUser } from './interfaces/loginUser';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 export interface User{
   id?:number;
   username:string;
@@ -15,20 +17,18 @@ const key = 'KEY'
 })
 
 export class AuthService {
-
-  constructor() {}
+  route = `${environment.route}/api/auth`
+  constructor(private http:HttpClient) {}
 
 
   login(user:loginUser):Observable<User>{
-    console.log(user)
-  const foundUser = this.users.find(u => user.username == u.username)
-  console.log(this.users)
-  if(!foundUser) throw new Error('username not found error')
-  if(foundUser.password != user.password)  throw new Error('credentials error')
-  return of({...foundUser})
+    return this.http.post<User>(`${this.route}/login`,user)
 
   }
+  signup(user:loginUser):Observable<User>{
+    return this.http.post<User>(`${this.route}/signup`,user)
 
+  }
 
   users:User[] = [
     {id:1 ,username:'11@11',password:'11',token:adminToken},

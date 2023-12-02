@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Student } from '../interfaces/student';
 import { Observable, last, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StudentService {
+route = `${environment.route}/api/students`
   students: Student[] = [
     {
       id: 1,
@@ -69,46 +72,23 @@ export class StudentService {
     },
     // Agrega más usuarios aquí
   ];
-  constructor() {}
+  constructor(private http:HttpClient) {}
 
   getStudents(): Observable<Student[]> {
-    return of(this.students);
+    return this.http.get<Student[]>(this.route)
   }
   getStudentById(id: number): Observable<Student> {
-    const studentById = this.students.find((e) => e.id == id);
-    if (!studentById) throw new Error('user not found');
-    return of({ ...studentById });
+    return this.http.get<Student>(`${this.route}/${id}`)
   }
   addStudent(newStudent: Student): Observable<Student[]> {
-    const lastStudent = this.students[this.students.length - 1]
-    if(lastStudent.id) newStudent.id = lastStudent.id + 1
+    return this.http.post<Student[]>(this.route,newStudent)
 
-    this.students.push(newStudent);
-    return of([...this.students]);
   }
-
   updateStudent(id: number, updatedStudent: Student): Observable<Student[]> {
-    updatedStudent.id = id;
-    updatedStudent.active = true;
-    const index = this.students.findIndex(
-      (student) => student.id === updatedStudent.id
-    );
-
-    if (index !== -1) {
-      this.students[index] = updatedStudent;
-    }
-    return of([...this.students]);
+    return this.http.put<Student[]>(`${this.route}/${id}`,updatedStudent)
   }
 
   deleteStudent(studentId: number): Observable<Student[]> {
-    const index = this.students.findIndex(
-      (student) => student.id === studentId
-    );
-    if (index !== -1) {
-      this.students.splice(index, 1);
-    } else {
-      throw new Error('student not found');
-    }
-    return of([...this.students]);
+    return this.http.delete<Student[]>(`${this.route}/${studentId}`)
   }
 }

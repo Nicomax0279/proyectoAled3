@@ -13,6 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [],
   imports: [
@@ -30,7 +31,8 @@ import {MatCardModule} from '@angular/material/card';
     MatTooltipModule,
     MatSelectModule,
     MatCardModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   exports: [
     MatTableModule,
@@ -46,7 +48,8 @@ import {MatCardModule} from '@angular/material/card';
     MatTooltipModule,
     MatSelectModule,
     MatCardModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
 })
 export class SharedModule {}
